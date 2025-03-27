@@ -40,4 +40,19 @@ describe("PaymentFacade test", () => {
     expect(output.amount).toBe(input.amount);
     expect(output.status).toBe("approved");
   });
+
+  it("should decline a transaction", async () => {
+    const facade = PaymentFacadeFactory.create();
+
+    const input = {
+      orderId: "order-1",
+      amount: 10,
+    };
+
+    const output = await facade.process(input);
+    expect(output.transactionId).toBeDefined();
+    expect(output.orderId).toBe(input.orderId);
+    expect(output.amount).toBe(input.amount);
+    expect(output.status).toBe("declined");
+  });
 });
